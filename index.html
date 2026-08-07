@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Почему бойкотирование выборов — не лучшая идея</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%235BA439'/%3E%3Crect x='22' y='50' width='14' height='28' fill='%23fff'/%3E%3Crect x='43' y='30' width='14' height='48' fill='%23fff'/%3E%3Crect x='64' y='42' width='14' height='36' fill='%23E31D36'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/roboto/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/roboto/500.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/roboto/700.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/oswald/500.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/oswald/600.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/material-symbols-outlined/index.css">
+<style>
+:root{
+  --primary:#5BA439;--on-primary:#0B1604;--primary-container:#D8F0CC;--on-primary-container:#122007;
+  --red:#E31D36;--red-container:#FFDAD7;--on-red-container:#41000C;
+  --surface:#F1F5EA;--surface-2:#E2EAD5;--card:#FFFFFF;
+  --on-surface:#2A3420;--on-surface-var:#57644A;--border:#7C8B6D;--line:#B7C4A8;
+  --bg-meaning:#D7F0BC;--bg-math:#C9E9A6;--bg-sim:#E7F4D8;
+  --pA:#E31D36;--pB:#4C8C2B;--pC:#4A6572;--mutedbar:#B9C2AD;
+  --up:#2E6B12;--dn:#B0142A;
+  --snack-bg:#202A18;--snack-fg:#F1F7EA;
+  --bw:2px;
+  --elev1:0 2px 6px rgba(15,25,5,.18);
+  --elev2:0 4px 14px rgba(15,25,5,.28);
+  color-scheme:light;
+}
+html[data-theme="dark"]{
+  --primary:#9CD67C;--on-primary:#1E3700;--primary-container:#2C4413;--on-primary-container:#D8F0CC;
+  --red:#FF8A94;--red-container:#601420;--on-red-container:#FFDAD7;
+  --surface:#0B1108;--surface-2:#182112;--card:#161F10;
+  --on-surface:#DCE6D0;--on-surface-var:#AAB89C;--border:#758568;--line:#4C5A40;
+  --bg-meaning:#1C2E10;--bg-math:#24390F;--bg-sim:#16240C;
+  --pA:#FF8A94;--pB:#9CD67C;--pC:#9FB6C2;--mutedbar:#4C564A;
+  --up:#9CD67C;--dn:#FF8A94;
+  --snack-bg:#EDF3E4;--snack-fg:#141B0E;
+  --elev1:0 2px 6px rgba(0,0,0,.5);
+  --elev2:0 4px 14px rgba(0,0,0,.6);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}html,body{margin:0}
+html{scroll-behavior:smooth}
+body{font-family:Roboto,system-ui,sans-serif;background:var(--surface);color:var(--on-surface);transition:background .25s,color .25s}
+[hidden]{display:none!important}h1,h2,h3,p{margin:0}button{font-family:inherit}
+:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
+.msi{font-family:'Material Symbols Outlined';font-weight:normal;font-style:normal;font-size:22px;line-height:1;display:inline-block;vertical-align:middle;font-feature-settings:'liga';user-select:none}
+.spacer{flex:1}
+/* ---------- летающие кнопки: скрыты до симулятора ---------- */
+.fabs{position:fixed;top:14px;right:14px;z-index:70;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;max-width:92vw;
+  opacity:0;transform:translateY(-18px);pointer-events:none;transition:opacity .35s,transform .35s}
+.fabs.show{opacity:1;transform:none;pointer-events:auto}
+.fabs .btn,.fabs .icon-btn{box-shadow:var(--elev2)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:var(--bw) solid var(--border);height:44px;padding:0 20px;border-radius:22px;font:500 14.5px/1 Roboto,sans-serif;cursor:pointer;transition:filter .18s,transform .12s;user-select:none}
+.btn .msi{font-size:20px}.btn:active{transform:scale(.97)}
+.btn-filled{background:var(--primary);color:var(--on-primary)}
+.btn-filled:hover{filter:brightness(1.06)}
+.btn-tonal{background:var(--primary-container);color:var(--on-primary-container)}
+.btn-text{background:var(--card);color:var(--on-surface)}
+.btn.sm{height:36px;padding:0 16px;border-radius:18px;font-size:13px}.btn.sm .msi{font-size:18px}
+.icon-btn{width:42px;height:42px;border-radius:50%;display:inline-grid;place-items:center;border:var(--bw) solid var(--border);background:var(--card);color:var(--on-surface);cursor:pointer;transition:background .15s;flex:none}
+.icon-btn:hover{background:var(--surface-2)}
+.chip{display:inline-flex;align-items:center;gap:5px;height:30px;padding:0 12px;border-radius:9px;background:var(--surface-2);color:var(--on-surface);border:var(--bw) solid var(--line);font-size:13px;font-weight:700;white-space:nowrap}
+.chip-f{cursor:pointer;border:var(--bw) solid var(--line);height:36px;padding:0 18px;border-radius:10px;background:var(--card);color:var(--on-surface);font:700 13.5px Roboto,sans-serif;transition:.15s;white-space:nowrap}
+.chip-f.active{background:var(--primary);border-color:var(--border);color:var(--on-primary)}
+.chip-f:disabled{opacity:.4;pointer-events:none}
+/* ---------- герой: заголовок во весь экран, слева сверху ---------- */
+#hero{min-height:100vh;background:var(--primary);display:grid;place-items:center;position:relative;padding:40px 16px;overflow:hidden}
+#hero h1{font:600 clamp(34px,7.2vw,96px)/1.04 Oswald,Roboto,sans-serif;text-transform:uppercase;letter-spacing:.02em;
+  color:#FFFFFF;text-align:center;max-width:1200px;z-index:1}
+.h-arrow{position:absolute;top:50%;right:-6vw;transform:translateY(-50%);z-index:0;opacity:.2;pointer-events:none}
+.h-arrow svg{height:160vh;width:auto;display:block;fill:none;stroke:#FFFFFF}
+/* ---------- секции ---------- */
+.sect{padding:64px 20px;border-bottom:var(--bw) solid var(--border)}
+#meaning{background:var(--bg-meaning)}
+#math{background:var(--bg-math)}
+#sim{background:var(--bg-sim);padding:24px 16px;height:100vh;border-bottom:none}
+.sect-in{max-width:1060px;margin:auto;display:flex;flex-direction:column;gap:26px}
+.sect h2{font:600 clamp(24px,3.4vw,42px)/1.15 Oswald,Roboto,sans-serif;text-transform:uppercase;letter-spacing:.02em}
+.big{font-size:clamp(18px,2.4vw,27px);line-height:1.5;font-weight:500}
+.big b{font-weight:700}
+.hl{background:var(--card);border:var(--bw) solid var(--border);border-radius:10px;padding:2px 8px;font-weight:700;white-space:nowrap}
+.hl.red{background:var(--red-container);color:var(--on-red-container)}
+.statement{font:600 clamp(24px,3.6vw,46px)/1.25 Oswald,Roboto,sans-serif;text-transform:uppercase;border:var(--bw) solid var(--border);border-radius:18px;background:var(--card);padding:30px 34px;box-shadow:var(--elev1)}
+.mathcard{border:var(--bw) solid var(--border);border-radius:18px;background:var(--card);padding:22px 26px;box-shadow:var(--elev1)}
+.mathcard h3{font:600 20px Oswald,Roboto,sans-serif;text-transform:uppercase;margin-bottom:10px}
+/* ---------- симулятор: одна страница ---------- */
+#sim .sect-in{max-width:none;gap:12px;height:100%}
+.sim-grid{display:grid;grid-template-columns:440px minmax(0,1fr) 340px;gap:16px;align-items:stretch;
+  flex:1;min-height:0}
+.sim-grid>*{max-height:100%;overflow:auto;scrollbar-width:thin}
+.card{background:var(--card);border:var(--bw) solid var(--border);border-radius:18px;box-shadow:var(--elev1)}
+.panel{padding:16px;font-size:14.5px}
+.panel h2{font:600 17px Oswald,Roboto,sans-serif;text-transform:uppercase;display:flex;align-items:center;gap:9px;margin-bottom:12px}
+.panel h2 .msi{font-size:20px;color:var(--primary)}
+.subhead{font:600 15px Oswald,Roboto,sans-serif;text-transform:uppercase;display:flex;align-items:center;gap:8px;margin:4px 0 10px;color:var(--on-surface)}
+.subhead .msi{font-size:18px;color:var(--primary)}
+.subhead.redh .msi{color:var(--dn)}
+.divider{border-top:var(--bw) solid var(--border);margin:14px 0}
+.ctl{margin-bottom:12px}
+.ctl-lbl{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:700;color:var(--on-surface-var);margin-bottom:6px;gap:8px}
+.ctl-lbl b{color:var(--on-surface)}
+input[type="range"]{width:100%;accent-color:var(--primary);height:26px;margin:0;cursor:pointer}
+input[type="number"],input[type="text"],select{width:100%;background:var(--card);color:var(--on-surface);border:var(--bw) solid var(--line);border-radius:12px;padding:10px 12px;font:700 14.5px Roboto,sans-serif;outline:none}
+input[type="number"]:focus,input[type="text"]:focus,select:focus{border-color:var(--border)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pblock{margin-bottom:10px}
+.prow{display:grid;grid-template-columns:16px 1fr auto;gap:10px;align-items:center;margin-bottom:6px}
+.pdot{width:14px;height:14px;border-radius:4px;border:var(--bw) solid var(--border)}
+/* подложки для процентов и названий */
+.pval,.dval{font-size:12.5px;font-weight:700;text-align:right;color:var(--on-primary-container);
+  background:var(--primary-container);border:var(--bw) solid var(--border);border-radius:8px;padding:4px 8px;white-space:nowrap}
+.q-block{border:var(--bw) solid var(--line);border-radius:14px;padding:14px;margin-top:6px}
+.q{font-size:15.5px;font-weight:700;margin-bottom:10px}
+.q-answers{display:flex;gap:10px}
+.drow{border:var(--bw) solid var(--line);border-radius:12px;padding:10px;margin-bottom:10px}
+.dtop{display:grid;grid-template-columns:16px 1fr auto 40px;gap:8px;align-items:center;margin-bottom:6px}
+.drow.zero{opacity:.45}
+.model-note{font-size:12.5px;color:var(--on-surface-var);border-top:var(--bw) solid var(--line);margin-top:14px;padding-top:10px;line-height:1.55}
+.charts-bar{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.charts{display:flex;flex-direction:column;gap:16px;min-width:0}
+.charts.row{display:grid;grid-template-columns:1fr 1fr;align-items:start}
+.scen{padding:16px;min-width:0}
+.scen-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.scen-head h3{font:600 17px Oswald,Roboto,sans-serif;text-transform:uppercase;margin-right:auto}
+.chart{position:relative;height:220px;display:flex;align-items:flex-end;gap:18px;padding:0 84px 0 10px;border-bottom:var(--bw) solid var(--border)}
+.barcol{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;gap:6px;min-width:0}
+.val{font-weight:700;font-size:15px}
+.bar{width:min(64px,82%);border-radius:6px 6px 0 0;border:var(--bw) solid var(--border);border-bottom:none;transition:height .25s}
+.bar.low{opacity:.32}
+.thr{position:absolute;left:0;right:0;border-top:3px dashed var(--dn);pointer-events:none;z-index:3}
+.thr i{position:absolute;right:0;top:-28px;font-style:normal;font-size:12.5px;font-weight:700;
+  background:var(--dn);color:var(--card);border-radius:7px;padding:3px 9px;
+  box-shadow:0 0 0 2px var(--card);white-space:nowrap}
+.names{display:flex;gap:18px;padding:10px 84px 0 10px}
+.ncol{flex:1;text-align:center;display:flex;flex-direction:column;gap:4px;min-width:0;align-items:center}
+.nname{font-size:13.5px;font-weight:700;background:var(--surface-2);border:var(--bw) solid var(--line);border-radius:8px;padding:2px 8px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nseats{font-size:13px;font-weight:700;color:var(--on-surface-var)}
+.waste{margin-top:12px;font-size:14px;font-weight:500;color:var(--on-surface);background:var(--surface-2);border:var(--bw) solid var(--line);border-radius:12px;padding:10px 14px;line-height:1.5}
+.colwrap{display:flex;gap:22px;padding:6px 10px 0}
+.colstack{width:88px;height:280px;display:flex;flex-direction:column;border-radius:8px;overflow:hidden;flex:none;border:var(--bw) solid var(--border)}
+.colseg{width:100%}
+.collegend{flex:1;display:flex;flex-direction:column;gap:8px;min-width:0}
+.clrow{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:500;flex-wrap:wrap}
+.clrow b{margin-left:auto}
+.clv{color:var(--on-surface-var);font-size:12.5px;font-weight:700}
+.stat-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:11px 0;border-top:var(--bw) solid var(--line);font-size:15px}
+.stat-row:first-of-type{border-top:none}
+.stat-row b{min-width:100px}
+.smetric{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--on-surface-var)}
+.smetric b{min-width:0;color:var(--on-surface)}
+.up{color:var(--up);font-weight:700}
+.dn{color:var(--dn);font-weight:700}
+/* ---------- диалоги ---------- */
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;display:grid;place-items:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .2s}
+.scrim.open{opacity:1;pointer-events:auto}
+.dialog{background:var(--card);border:var(--bw) solid var(--border);border-radius:24px;max-width:640px;width:100%;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 10px 44px rgba(0,0,0,.4);transform:scale(.94) translateY(10px);transition:transform .22s cubic-bezier(.2,0,0,1)}
+.scrim.open .dialog{transform:none}
+.dlg-head{display:flex;align-items:center;gap:12px;padding:22px 22px 6px}
+.dlg-head h3{font:600 20px Oswald,Roboto,sans-serif;text-transform:uppercase;flex:1}
+.dlg-head .msi{font-size:26px;color:var(--primary)}
+.dlg-body{padding:12px 22px;overflow:auto;display:flex;flex-direction:column;gap:14px}
+.dlg-foot{display:flex;justify-content:flex-end;gap:10px;padding:14px 22px 20px}
+.ob-step{display:flex;gap:12px;font-size:14.5px;line-height:1.55}
+.ob-num{width:26px;height:26px;border-radius:50%;background:var(--primary);color:var(--on-primary);display:grid;place-items:center;font-weight:700;font-size:13px;flex:none;margin-top:1px}
+#snackbar{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(24px);background:var(--snack-bg);color:var(--snack-fg);display:flex;align-items:center;gap:11px;padding:13px 20px;border-radius:14px;border:var(--bw) solid var(--border);box-shadow:var(--elev1);opacity:0;pointer-events:none;transition:.28s;z-index:200;max-width:min(92vw,500px);font-size:14px}
+#snackbar.show{opacity:1;transform:translateX(-50%)}
+#snackbar .msi{font-size:20px;color:var(--primary)}
+@media(max-width:1280px){.sim-grid{grid-template-columns:400px minmax(0,1fr) 320px}}
+@media(max-width:1120px){
+  #sim{height:auto}
+  .sim-grid{grid-template-columns:380px minmax(0,1fr);min-height:620px}
+  .sim-grid>*{overflow:visible}
+  .sim-grid .statcol{grid-column:1/-1}
+}
+@media(max-width:860px){
+  .sim-grid{grid-template-columns:1fr}
+  .charts.row{grid-template-columns:1fr}
+  .h-arrow{right:-16vw}
+}
+</style>
+</head>
+<body>
+
+<!-- летающие кнопки -->
+<div class="fabs" id="fabs">
+  <button class="btn btn-text sm" data-go="meaning">Смысл</button>
+  <button class="btn btn-text sm" data-go="math">Математика</button>
+  <button class="btn btn-text sm" data-go="sim">Симулятор</button>
+  <button class="icon-btn" id="btnReset" title="Сброс"><span class="msi">restart_alt</span></button>
+  <button class="icon-btn" id="themeBtn" title="Тема"><span class="msi">dark_mode</span></button>
+</div>
+
+<!-- ГЕРОЙ -->
+<section id="hero">
+  <div class="h-arrow"><svg viewBox="-50 -50 300 700" aria-hidden="true">
+    <path d="M100 0 V480" fill="none" stroke-width="44" stroke-linecap="butt"/>
+    <path d="M14 372 L100 480 L186 372" fill="none" stroke-width="44" stroke-linecap="square" stroke-linejoin="miter"/>
+  </svg></div>
+  <h1>Почему бойкотирование выборов не&nbsp;лучшая идея?</h1>
+</section>
+
+<!-- СМЫСЛ -->
+<section class="sect" id="meaning">
+  <div class="sect-in">
+    <h2>Главный смысл</h2>
+    <div class="statement">Бойкот не вычитает голосов у большинства. Он уменьшает число тех, чьи голоса учитываются, — и процент лидера растёт.</div>
+    <p class="big">Когда часть избирателей не приходит, голоса партии власти делятся на <b>меньшее</b> число проголосовавших. Её процент и доля мандатов становятся <b>больше</b>, хотя ни одного нового голоса за неё не прибавилось. Неголосующие просто не попадают в арифметику результатов.</p>
+  </div>
+</section>
+
+<!-- МАТЕМАТИКА -->
+<section class="sect" id="math">
+  <div class="sect-in">
+    <h2>Математическое обоснование</h2>
+    <div class="mathcard">
+      <h3>1 · Процент — это отношение</h3>
+      <p class="big">Результаты считаются как доли от <b>поданных</b> голосов, а не от всех избирателей. Поэтому одно и то же число голосов даёт разный процент при разной явке: <span class="hl">520 000</span> из <span class="hl">800 000</span> — это <span class="hl red">65%</span>, а <span class="hl">520 000</span> из <span class="hl">1 000 000</span> — лишь <span class="hl">52%</span>. Если бы пришли все, процент лидера был бы ниже — при тех же его голосах.</p>
+    </div>
+    <div class="mathcard">
+      <h3>2 · Порог входа в парламент</h3>
+      <p class="big">Места распределяются только между партиями, преодолевшими порог (обычно <span class="hl">5%</span>). Это не значит, что чьи-то голоса «забирают»: голоса партий ниже порога просто не участвуют в распределении, и то же общее число мест делится между меньшим кругом участников. Доли прошедших партий при этом оказываются выше, чем были бы при более широком круге.</p>
+    </div>
+    <div class="mathcard">
+      <h3>3 · Мандаты</h3>
+      <p class="big">Приведём пример, наглядно представленный ниже в симуляторе: при бойкоте партия власти получает <span class="hl red">308 мест</span> из 450. Если бойкотирующие приходят и поддерживают оппозицию, у лидера уже <span class="hl">235 мест</span>. Разница в <b>73 мандата</b> — цена неучастия.</p>
+    </div>
+  </div>
+</section>
+
+<!-- СИМУЛЯТОР -->
+<section class="sect" id="sim">
+  <div class="sect-in">
+    <h2>Попробуйте сами</h2>
+    <div class="sim-grid">
+      <aside class="card panel">
+        <h2><span class="msi">tune</span>Настройки</h2>
+        <div class="subhead"><span class="msi">how_to_vote</span>Обычные избиратели</div>
+        <div class="ctl">
+          <div class="ctl-lbl"><span>Всего избирателей</span><b id="vN"></b></div>
+          <input type="range" id="rN" min="100000" max="5000000" step="50000" value="1000000">
+        </div>
+        <div class="row2">
+          <div class="ctl"><div class="ctl-lbl"><span>Порог, %</span></div><input type="number" id="inThr" value="5" min="0" max="15" step="0.5"></div>
+          <div class="ctl"><div class="ctl-lbl"><span>Мест</span></div><input type="number" id="inSeats" value="450" min="10" max="1000" step="10"></div>
+        </div>
+        <div class="ctl-lbl"><span>Поддержка партий, % избирателей</span><span class="chip" id="freeChip"></span></div>
+        <div class="pblock">
+          <div class="prow"><span class="pdot" style="background:var(--pA)"></span><input type="text" id="nm0" value="Партия A" maxlength="24"><b class="pval" id="vV0"></b></div>
+          <input type="range" id="rV0" min="0" max="100" step="0.5" value="52">
+        </div>
+        <div class="pblock">
+          <div class="prow"><span class="pdot" style="background:var(--pB)"></span><input type="text" id="nm1" value="Партия B" maxlength="24"><b class="pval" id="vV1"></b></div>
+          <input type="range" id="rV1" min="0" max="100" step="0.5" value="24">
+        </div>
+        <div class="pblock">
+          <div class="prow"><span class="pdot" style="background:var(--pC)"></span><input type="text" id="nm2" value="Партия C" maxlength="24"><b class="pval" id="vV2"></b></div>
+          <input type="range" id="rV2" min="0" max="100" step="0.5" value="3.5">
+        </div>
+
+        <div class="divider"></div>
+        <div class="subhead redh"><span class="msi">front_hand</span>Бойкотирующие</div>
+        <div class="ctl">
+          <div class="ctl-lbl"><span>Бойкотирующих</span><b id="vB"></b></div>
+          <input type="range" id="rB" min="0" max="100" step="0.5" value="20">
+        </div>
+        <div class="q-block">
+          <div class="q">Придут ли в итоге избиратели, бойкотирующие выборы?</div>
+          <div class="q-answers">
+            <button class="chip-f" id="qNo">Нет</button>
+            <button class="chip-f active" id="qYes">Да</button>
+          </div>
+        </div>
+        <div id="yesBox" style="margin-top:12px">
+          <div class="ctl-lbl"><span>За какие партии голосуют бойкотирующие</span><span class="chip" id="dFreeChip"></span></div>
+          <div id="distList"></div>
+          <button class="btn btn-tonal sm" id="addRow"><span class="msi">add</span>Добавить партию</button>
+        </div>
+      </aside>
+
+      <div class="charts-col" style="min-width:0">
+        <div class="charts-bar">
+          <span class="chip">диаграммы</span>
+          <span class="spacer"></span>
+          <button class="chip-f" id="layCol">столбиком</button>
+          <button class="chip-f active" id="layRow">рядом</button>
+        </div>
+        <div class="charts row" id="chartsBox">
+          <div class="card scen" id="sc1"></div>
+          <div class="card scen" id="sc2"></div>
+          <div class="card scen" id="colCard" hidden></div>
+        </div>
+      </div>
+
+      <aside class="card panel statcol">
+        <h2><span class="msi">monitoring</span>Статистика</h2>
+        <div id="statBox"></div>
+        <p class="model-note">Модель: пропорциональная система; мандаты делятся между партиями, прошедшими порог, методом наибольшего остатка; порога явки нет (как в большинстве реальных систем). В системах с порогом явки бойкот теоретически может сорвать выборы — это отдельный механизм, он здесь не моделируется. Симулятор — учебная иллюстрация арифметики голосов, а не прогноз.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<div id="snackbar"></div>
+
+<script>
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id);};
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function fmt(n){return Math.round(n).toLocaleString('ru-RU');}
+var COLORS=['var(--pA)','var(--pB)','var(--pC)'];
+var SC=0.88;
+var DEF={rN:1000000,rB:20,rV0:52,rV1:24,rV2:3.5,thr:5,seats:450};
+var boyMode='yes';
+var distRows=[{p:1,pct:60},{p:2,pct:40}];
+
+function names(){return [$('nm0').value||'Партия A',$('nm1').value||'Партия B',$('nm2').value||'Партия C'];}
+
+function allocate(v,pcts,thr,total){
+  var idx=[],i;
+  for(i=0;i<v.length;i++)if(pcts[i]>=thr)idx.push(i);
+  var out=[0,0,0],qsum=0;
+  idx.forEach(function(k){qsum+=v[k];});
+  if(!qsum||!total||!idx.length)return out;
+  var rem=[],baseSum=0;
+  idx.forEach(function(k){
+    var q=v[k]/qsum*total,b=Math.floor(q);
+    out[k]=b;baseSum+=b;rem.push([q-b,k]);
+  });
+  rem.sort(function(a,b){return b[0]-a[0];});
+  var left=total-baseSum;
+  for(i=0;i<left;i++)out[rem[i%rem.length][1]]++;
+  return out;
+}
+function scenario(v,cast,thr,seats,N){
+  var pcts=v.map(function(x){return cast?x/cast*100:0;});
+  var wasted=0;
+  v.forEach(function(x,i){if(pcts[i]<thr)wasted+=x;});
+  return {pcts:pcts,seats:allocate(v,pcts,thr,seats),cast:cast,wasted:wasted,turnout:N?Math.min(100,cast/N*100):0};
+}
+function scenHTML(title,s,namesArr,thr){
+  var h='<div class="scen-head"><h3>'+title+'</h3><span class="chip">явка '+s.turnout.toFixed(1)+'%</span><span class="chip">подано: '+fmt(s.cast)+'</span></div>';
+  h+='<div class="chart"><div class="thr" style="bottom:'+(thr*SC)+'%"><i>порог '+thr+'%</i></div>';
+  s.pcts.forEach(function(p,i){
+    h+='<div class="barcol"><span class="val">'+p.toFixed(1)+'%</span>'+
+       '<div class="bar'+(p<thr?' low':'')+'" style="height:'+Math.max(1.5,Math.min(100,p*SC))+'%;background:'+COLORS[i]+'"></div></div>';
+  });
+  h+='</div><div class="names">';
+  s.pcts.forEach(function(p,i){
+    h+='<div class="ncol"><span class="nname">'+esc(namesArr[i])+'</span>'+
+       '<span class="nseats">'+(p>=thr?s.seats[i]+' мест':'ниже порога')+'</span></div>';
+  });
+  h+='</div>';
+  if(s.wasted>0)h+='<p class="waste">Партии ниже порога в сумме собрали '+fmt(s.wasted)+' голосов: эти голоса не участвуют в распределении мандатов, и круг получателей мест сужается.</p>';
+  return h;
+}
+function columnHTML(N,v,cast,namesArr){
+  var cats=[];
+  v.forEach(function(x,i){cats.push({n:namesArr[i],v:x,c:COLORS[i]});});
+  cats.push({n:'Не проголосовали вовсе',v:Math.max(0,N-cast),c:'var(--mutedbar)'});
+  var h='<div class="scen-head"><h3>Состав электората</h3><span class="chip">всего: '+fmt(N)+'</span></div><div class="colwrap"><div class="colstack">';
+  cats.forEach(function(cat){
+    var pct=N?cat.v/N*100:0;
+    h+='<div class="colseg" style="height:'+Math.max(1,pct)+'%;background:'+cat.c+'" title="'+esc(cat.n)+'"></div>';
+  });
+  h+='</div><div class="collegend">';
+  cats.forEach(function(cat){
+    var pct=N?cat.v/N*100:0;
+    h+='<div class="clrow"><span class="pdot" style="background:'+cat.c+'"></span><span>'+esc(cat.n)+'</span><b>'+pct.toFixed(1)+'%</b><span class="clv">'+fmt(cat.v)+'</span></div>';
+  });
+  h+='</div></div><p class="waste">Бойкот не вычитает голосов у лидера: не пришедшие не попадают ни в знаменатель процентов, ни в распределение мандатов.</p>';
+  return h;
+}
+function deltaHTML(a,b){
+  var d=b-a,cls=d>0?'up':d<0?'dn':'',sign=d>0?'+':'';
+  return ' <span class="'+cls+'">'+(d===0?'±0':sign+Math.round(d))+'</span>';
+}
+/* ---------- список распределения ---------- */
+function buildDistList(){
+  var box=$('distList');box.innerHTML='';
+  var nm=names();
+  distRows.forEach(function(r,i){
+    var row=document.createElement('div');row.className='drow'+(r.pct===0?' zero':'');
+    var top=document.createElement('div');top.className='dtop';
+    var dot=document.createElement('span');dot.className='pdot';dot.style.background=COLORS[r.p];
+    var sel=document.createElement('select');
+    [0,1,2].forEach(function(p){var o=document.createElement('option');o.value=p;o.textContent=nm[p];if(p===r.p)o.selected=true;sel.appendChild(o);});
+    sel.onchange=function(){r.p=+sel.value;dot.style.background=COLORS[r.p];renderResults();};
+    var val=document.createElement('b');val.className='dval';val.textContent=r.pct+'%';
+    var del=document.createElement('button');del.className='icon-btn';del.title='Убрать';del.style.width='34px';del.style.height='34px';
+    del.innerHTML='<span class="msi" style="font-size:18px">delete</span>';
+    del.onclick=function(){if(distRows.length>1){distRows.splice(i,1);buildDistList();renderResults();}};
+    top.appendChild(dot);top.appendChild(sel);top.appendChild(val);top.appendChild(del);
+    var rng=document.createElement('input');rng.type='range';rng.min=0;rng.max=100;rng.step=5;rng.value=r.pct;
+    rng.oninput=function(){
+      var others=0;distRows.forEach(function(o,j){if(j!==i)others+=o.pct;});
+      var max=Math.max(0,100-others);
+      var vN=Math.min(+rng.value,max);
+      rng.value=vN;r.pct=vN;
+      val.textContent=vN+'%';row.classList.toggle('zero',vN===0);
+      renderResults();
+    };
+    row.appendChild(top);row.appendChild(rng);
+    box.appendChild(row);
+  });
+}
+$('addRow').onclick=function(){
+  if(distRows.length>=3){snack('Партий всего три','info');return;}
+  var used=distRows.map(function(r){return r.p;});
+  var free=[0,1,2].filter(function(p){return used.indexOf(p)<0;});
+  distRows.push({p:free[0]!=null?free[0]:0,pct:0});
+  buildDistList();renderResults();
+};
+/* ---------- пересчёт ---------- */
+function renderResults(){
+  var N=+$('rN').value;
+  var bPct=+$('rB').value,B=Math.round(N*bPct/100);
+  var pPct=[+$('rV0').value,+$('rV1').value,+$('rV2').value];
+  var v=pPct.map(function(p){return Math.round(N*p/100);});
+  var thr=Math.max(0,Math.min(15,+$('inThr').value||0));
+  var seats=Math.round(Math.max(10,Math.min(1000,+$('inSeats').value||10)));
+  $('vN').textContent=fmt(N);
+  $('vB').textContent=bPct.toFixed(1).replace('.0','')+'% · '+fmt(B);
+  ['vV0','vV1','vV2'].forEach(function(id,i){
+    $(id).textContent=pPct[i].toFixed(1).replace('.0','')+'% · '+fmt(v[i]);
+  });
+  var free=100-(pPct[0]+pPct[1]+pPct[2]+bPct);
+  $('freeChip').textContent='свободно '+Math.max(0,free).toFixed(1).replace('.0','')+'%';
+  var dSumPct=0;distRows.forEach(function(r){dSumPct+=r.pct;});
+  var freePct=Math.max(0,100-dSumPct);
+  $('dFreeChip').textContent='свободно '+freePct.toFixed(1).replace('.0','')+'% · '+fmt(Math.round(B*freePct/100))+' чел.';
+  var cast=v[0]+v[1]+v[2];
+  var s1=scenario(v,cast,thr,seats,N);
+  var nm=names();
+  $('sc1').innerHTML=scenHTML('Сценарий 1 · бойкот',s1,nm,thr);
+  var yes=boyMode==='yes';
+  $('yesBox').hidden=!yes;
+  $('qYes').classList.toggle('active',yes);
+  $('qNo').classList.toggle('active',!yes);
+  var stat='';
+  if(yes){
+    var per=[0,0,0];
+    distRows.forEach(function(r){per[r.p]+=Math.round(B*r.pct/100);});
+    var totalD=per[0]+per[1]+per[2];
+    var v2=v.map(function(x,i){return x+per[i];});
+    var s2=scenario(v2,cast+totalD,thr,seats,N);
+    $('sc2').hidden=false;$('colCard').hidden=true;
+    $('sc2').innerHTML=scenHTML('Сценарий 2 · бойкотирующие проголосовали',s2,nm,thr);
+    stat='<h3 style="font:600 15px Oswald,sans-serif;text-transform:uppercase;margin-bottom:8px">Что изменилось</h3>';
+    for(var i=0;i<3;i++){
+      stat+='<div class="stat-row"><span class="pdot" style="background:'+COLORS[i]+'"></span><b>'+esc(nm[i])+'</b>'+
+        '<span class="smetric">голоса: <b>'+s1.pcts[i].toFixed(1)+'% → '+s2.pcts[i].toFixed(1)+'%</b>'+deltaHTML(s1.pcts[i],s2.pcts[i])+' п.п.</span>'+
+        '<span class="smetric">места: <b>'+s1.seats[i]+' → '+s2.seats[i]+'</b>'+deltaHTML(s1.seats[i],s2.seats[i])+'</span></div>';
+    }
+  }else{
+    $('sc2').hidden=true;$('colCard').hidden=false;
+    $('colCard').innerHTML=columnHTML(N,v,cast,nm);
+    var lead=0;s1.pcts.forEach(function(p,i){if(p>s1.pcts[lead])lead=i;});
+    stat='<h3 style="font:600 15px Oswald,sans-serif;text-transform:uppercase;margin-bottom:8px">Сценарий бойкота</h3>'+
+      '<div class="stat-row"><span class="pdot" style="background:var(--mutedbar)"></span><b>Явка</b><span class="smetric"><b>'+s1.turnout.toFixed(1)+'%</b> ('+fmt(s1.cast)+' из '+fmt(N)+')</span></div>'+
+      '<div class="stat-row"><span class="pdot" style="background:'+COLORS[lead]+'"></span><b>Лидер: '+esc(nm[lead])+'</b><span class="smetric"><b>'+s1.pcts[lead].toFixed(1)+'%</b> · '+s1.seats[lead]+' мест</span></div>'+
+      '<div class="stat-row"><span class="pdot" style="background:var(--mutedbar)"></span><b>Ниже порога</b><span class="smetric"><b>'+fmt(s1.wasted)+'</b> голосов не участвуют в распределении</span></div>';
+  }
+  $('statBox').innerHTML=stat;
+  applyLayout();
+}
+/* ограничение суммы ≤ 100% */
+['rV0','rV1','rV2','rB'].forEach(function(id){
+  $(id).addEventListener('input',function(){
+    var others=0;['rV0','rV1','rV2','rB'].forEach(function(o){if(o!==id)others+=+$(o).value;});
+    var max=Math.max(0,100-others);
+    if(+$(id).value>max)$(id).value=max;
+    renderResults();
+  });
+});
+['rN','inThr','inSeats'].forEach(function(id){$(id).addEventListener('input',renderResults);});
+['nm0','nm1','nm2'].forEach(function(id){$(id).addEventListener('input',function(){buildDistList();renderResults();});});
+$('qNo').onclick=function(){boyMode='no';renderResults();};
+$('qYes').onclick=function(){boyMode='yes';renderResults();};
+var userLay='row';
+$('layCol').onclick=function(){userLay='col';setLay(false);};
+$('layRow').onclick=function(){userLay='row';applyLayout();};
+function setLay(row){
+  $('chartsBox').classList.toggle('row',row);
+  $('layRow').classList.toggle('active',row);
+  $('layCol').classList.toggle('active',!row);
+}
+function namesOverflow(){
+  var els=document.querySelectorAll('#chartsBox .nname');
+  for(var i=0;i<els.length;i++){if(els[i].scrollWidth>els[i].clientWidth+1)return true;}
+  return false;
+}
+/* если названия партий не читаются в режиме «рядом» — сразу вертикальная
+   раскладка, а кнопка «рядом» гаснет; на мобильных «рядом» невозможно вовсе */
+function applyLayout(){
+  var box=$('chartsBox');
+  if(window.matchMedia('(max-width:860px)').matches){
+    $('layRow').disabled=true;
+    setLay(false);
+    return;
+  }
+  var wasRow=box.classList.contains('row');
+  box.classList.add('row');           /* временно «рядом», чтобы измерить */
+  var fits=!namesOverflow();
+  if(!wasRow)box.classList.remove('row');
+  $('layRow').disabled=!fits;
+  if(!fits){setLay(false);return;}
+  setLay(userLay!=='col');
+}
+window.addEventListener('resize',applyLayout);
+function loadDef(){
+  Object.keys(DEF).forEach(function(k){
+    if(k==='thr')$('inThr').value=DEF[k];
+    else if(k==='seats')$('inSeats').value=DEF[k];
+    else $(k).value=DEF[k];
+  });
+  boyMode='yes';distRows=[{p:1,pct:60},{p:2,pct:40}];
+  buildDistList();renderResults();
+}
+$('btnReset').onclick=function(){loadDef();snack('Сброшено к примеру','restart_alt');};
+/* навигация */
+document.querySelectorAll('[data-go]').forEach(function(b){
+  b.onclick=function(){document.getElementById(b.getAttribute('data-go')).scrollIntoView({behavior:'smooth'});};
+});
+/* кнопки появляются, когда симулятор дошёл до верха окна, и остаются */
+var fabsShown=false;
+function checkFabs(){
+  if(fabsShown)return;
+  if($('math').getBoundingClientRect().bottom<=window.innerHeight+2){
+    fabsShown=true;
+    $('fabs').classList.add('show');
+    window.removeEventListener('scroll',checkFabs);
+  }
+}
+window.addEventListener('scroll',checkFabs,{passive:true});
+checkFabs();
+/* служебное */
+function openScrim(id){$(id).classList.add('open');}
+function closeScrim(id){$(id).classList.remove('open');}
+document.addEventListener('click',function(e){var c=e.target.closest('[data-close]');if(c)closeScrim(c.getAttribute('data-close'));});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeScrim('helpDialog');});
+var snackT=null;
+function snack(msg,icon){var el=$('snackbar');el.innerHTML='<span class="msi">'+(icon||'info')+'</span><span>'+esc(msg)+'</span>';el.classList.add('show');clearTimeout(snackT);snackT=setTimeout(function(){el.classList.remove('show');},3000);}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeScrim('helpDialog');});
+/* тема */
+var themeManual=false;
+function applyTheme(th,persist){
+  document.documentElement.dataset.theme=th;
+  $('themeBtn').querySelector('.msi').textContent=th==='dark'?'light_mode':'dark_mode';
+  if(persist){try{localStorage.setItem('electionsim.theme',th);}catch(e){}}
+  renderResults();
+}
+(function(){
+  var saved=null;try{saved=localStorage.getItem('electionsim.theme');}catch(e){}
+  applyTheme(saved||'light',false);
+  if(saved)themeManual=true;
+})();
+$('themeBtn').onclick=function(){themeManual=true;applyTheme(document.documentElement.dataset.theme==='dark'?'light':'dark',true);};
+loadDef();
+})();
+</script>
+</body>
+</html>
